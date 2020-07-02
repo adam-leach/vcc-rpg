@@ -190,6 +190,11 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (sprite, location) {
+    music.magicWand.play()
+    game.showLongText("Congratulations Level 1 dungeon complete!", DialogLayout.Top)
+    game.over(true, effects.confetti)
+})
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.ghost, function (sprite, otherSprite) {
     otherSprite.destroy(effects.spray, 200)
     info.changeScoreBy(7)
