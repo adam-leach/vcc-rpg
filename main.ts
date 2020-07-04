@@ -458,7 +458,7 @@ function MakeGhostRandomTile () {
     true
     )
     tiles.placeOnRandomTile(ghost_1, sprites.dungeon.floorLight0)
-    ghost_1.follow(Hero, 50)
+    ghost_1.follow(Hero, Math.randomRange(50, 100))
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (direction == "up") {
