@@ -25,10 +25,170 @@ namespace myTiles {
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Hero)
 })
-sprites.onOverlap(SpriteKind.ghost, SpriteKind.ghost, function (sprite, otherSprite) {
-    sprite.x += 1
-    sprite.y += 1
-})
+function BatSpawner () {
+    bat = sprites.create(img`
+. . f f f . . . . . . . . f f f 
+. f f c c . . . . . . f c b b c 
+f f c c . . . . . . f c b b c . 
+f c f c . . . . . . f b c c c . 
+f f f c c . c c . f c b b c c . 
+f f c 3 c c 3 c c f b c b b c . 
+f f b 3 b c 3 b c f b c c b c . 
+. c b b b b b b c b b c c c . . 
+. c 1 b b b 1 b b c c c c . . . 
+c b b b b b b b b b c c . . . . 
+c b c b b b c b b b b f . . . . 
+f b 1 f f f 1 b b b b f c . . . 
+f b b b b b b b b b b f c c . . 
+. f b b b b b b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`, SpriteKind.Enemy)
+    animation.runImageAnimation(
+    bat,
+    [img`
+. . f f f . . . . . . . . f f f 
+. f f c c . . . . . . f c b b c 
+f f c c . . . . . . f c b b c . 
+f c f c . . . . . . f b c c c . 
+f f f c c . c c . f c b b c c . 
+f f c 3 c c 3 c c f b c b b c . 
+f f b 3 b c 3 b c f b c c b c . 
+. c b b b b b b c b b c c c . . 
+. c 1 b b b 1 b b c c c c . . . 
+c b b b b b b b b b c c . . . . 
+c b c b b b c b b b b f . . . . 
+f b 1 f f f 1 b b b b f c . . . 
+f b b b b b b b b b b f c c . . 
+. f b b b b b b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`,img`
+. . f f f . . . . . . . . . . . 
+f f f c c . . . . . . . . f f f 
+f f c c . . c c . . . f c b b c 
+f f c 3 c c 3 c c f f b b b c . 
+f f b 3 b c 3 b c f b b c c c . 
+. c b b b b b b c f b c b c c . 
+. c b b b b b b c b b c b b c . 
+c b 1 b b b 1 b b b c c c b c . 
+c b b b b b b b b c c c c c . . 
+f b c b b b c b b b b f c . . . 
+f b 1 f f f 1 b b b b f c c . . 
+. f b b b b b b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . c c . . c c . . . . . . . . 
+. . c 3 c c 3 c c c . . . . . . 
+. c b 3 b c 3 b c c c . . . . . 
+. c b b b b b b b b f f . . . . 
+c c b b b b b b b b f f . . . . 
+c b 1 b b b 1 b b c f f f . . . 
+c b b b b b b b b f f f f . . . 
+f b c b b b c b c c b b b . . . 
+f b 1 f f f 1 b f c c c c . . . 
+. f b b b b b b f b b c c . . . 
+c c f b b b b b c c b b c . . . 
+c c c f f f f f f c c b b c . . 
+. c c c . . . . . . c c c c c . 
+. . c c c . . . . . . . c c c c 
+. . . . . . . . . . . . . . . . 
+`,img`
+. f f f . . . . . . . . f f f . 
+f f c . . . . . . . f c b b c . 
+f c c . . . . . . f c b b c . . 
+c f . . . . . . . f b c c c . . 
+c f f . . . . . f f b b c c . . 
+f f f c c . c c f b c b b c . . 
+f f f c c c c c f b c c b c . . 
+. f c 3 c c 3 b c b c c c . . . 
+. c b 3 b c 3 b b c c c c . . . 
+c c b b b b b b b b c c . . . . 
+c b 1 b b b 1 b b b b f c . . . 
+f b b b b b b b b b b f c c . . 
+f b c b b b c b b b b f . . . . 
+. f 1 f f f 1 b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`,img`
+. . f f f . . . . . . . . f f f 
+. f f c c . . . . . . f c b b c 
+f f c c . . . . . . f c b b c . 
+f c f c . . . . . . f b c c c . 
+f f f c c . c c . f c b b c c . 
+f f c 3 c c 3 c c f b c b b c . 
+f f b 3 b c 3 b c f b c c b c . 
+. c 1 b b b 1 b c b b c c c . . 
+. c 1 b b b 1 b b c c c c . . . 
+c b b b b b b b b b c c . . . . 
+c b 1 f f 1 c b b b b f . . . . 
+f f 1 f f 1 f b b b b f c . . . 
+f f 2 2 2 2 f b b b b f c c . . 
+. f 2 2 2 2 b b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`,img`
+. . f f f . . . . . . . . . . . 
+f f f c c . . . . . . . . f f f 
+f f c c c . c c . . . f c b b c 
+f f c 3 c c 3 c c f f b b b c . 
+f f c 3 b c 3 b c f b b c c c . 
+f c b b b b b b c f b c b c c . 
+c c 1 b b b 1 b c b b c b b c . 
+c b b b b b b b b b c c c b c . 
+c b 1 f f 1 c b b c c c c c . . 
+c f 1 f f 1 f b b b b f c . . . 
+f f f f f f f b b b b f c . . . 
+f f 2 2 2 2 f b b b b f c c . . 
+. f 2 2 2 2 2 b b b c f . . . . 
+. . f 2 2 2 b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . c c . c c . . . . . . . . 
+. . f 3 c c 3 c c c . . . . . . 
+. f c 3 b c 3 b c c c . . . . . 
+f c b b b b b b b b f f . . . . 
+c c 1 b b b 1 b b b f f . . . . 
+c b b b b b b b b c f f f . . . 
+c b 1 f f 1 c b b f f f f . . . 
+f f 1 f f 1 f b c c b b b . . . 
+f f f f f f f b f c c c c . . . 
+f f 2 2 2 2 f b f b b c c c . . 
+. f 2 2 2 2 2 b c c b b c . . . 
+. . f 2 2 2 b f f c c b b c . . 
+. . . f f f f f f f c c c c c . 
+. . . . . . . . . . . . c c c c 
+`,img`
+. f f f . . . . . . . . f f f . 
+f f c . . . . . . . f c b b c . 
+f c c . . . . . . f c b b c . . 
+c f . . . . . . . f b c c c . . 
+c f f . . . . . f f b b c c . . 
+f f f c c . c c f b c b b c . . 
+f f f c c c c c f b c c b c . . 
+. f c 3 c c 3 b c b c c c . . . 
+. c b 3 b c 3 b b c c c c . . . 
+c c b b b b b b b b c c . . . . 
+c 1 1 b b b 1 1 b b b f c . . . 
+f b b b b b b b b b b f c c . . 
+f b c b b b c b b b b f . . . . 
+. f 1 f f f 1 b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`],
+    100,
+    true
+    )
+    tiles.placeOnRandomTile(bat, sprites.dungeon.floorLight0)
+    bat.follow(Hero, Math.randomRange(50, 100))
+}
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.greenSwitchUp, function (sprite, location) {
     tiles.setTileAt(location, sprites.dungeon.greenSwitchDown)
     tiles.setWallAt(location, true)
@@ -195,11 +355,279 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
     game.showLongText("Congratulations Level 1 dungeon complete!", DialogLayout.Top)
     game.over(true, effects.confetti)
 })
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.ghost, function (sprite, otherSprite) {
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.spray, 200)
     info.changeScoreBy(7)
 })
-function MakeGhostRandomTile () {
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (direction == "up") {
+        projectile = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . 4 b 3 2 . . . . . . 
+. . . . 4 4 b 2 2 5 5 . . . . . 
+. . . . 2 5 b 2 2 3 2 . . . . . 
+. . . . a 5 5 2 3 5 5 . . . . . 
+. . . . 2 2 4 3 5 5 . . . . . . 
+. . . . 5 2 4 2 5 2 5 . . . . . 
+. . . . 5 . 2 4 4 5 . . . . . . 
+. . . . 5 2 . 5 2 5 . 5 . . . . 
+. . . 5 . . . 5 . . . 5 . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, Hero, 0, -200)
+    } else if (direction == "down") {
+        projectile = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . 5 . . 5 . . . . . . 
+. . . . 5 . . . . . . . . . . . 
+. . . . 5 . 5 . 5 . 5 . . . . . 
+. . . . 5 . 4 b 3 2 5 . . . . . 
+. . . . 4 4 b 2 2 2 5 . . . . . 
+. . . . 2 5 b 2 2 3 2 . . . . . 
+. . . . a 5 5 2 3 5 5 . . . . . 
+. . . . 2 2 4 3 5 5 . . . . . . 
+. . . . . 2 4 2 5 2 . . . . . . 
+. . . . . . 3 4 4 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, Hero, 0, 200)
+    } else if (direction == "left") {
+        projectile = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . 4 b 3 2 5 5 2 . . . 
+. . . . 4 4 b 2 2 2 5 . . . . . 
+. . . . 2 5 b 2 2 3 2 5 . . . . 
+. . . . a 5 5 2 3 5 5 . . . . . 
+. . . . 2 2 4 3 5 5 . 5 5 . . . 
+. . . . . 2 4 2 5 2 . 2 . . . . 
+. . . . . . 3 4 4 5 5 . 5 . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, Hero, -200, 0)
+    } else {
+        projectile = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. 5 . 5 5 5 4 b 3 2 . . . . . . 
+. . . 2 4 4 b 2 2 2 . . . . . . 
+. . 5 5 2 5 b 2 2 3 2 . . . . . 
+. 5 . . a 5 5 2 3 5 5 . . . . . 
+. . . 5 2 2 4 3 5 5 . . . . . . 
+. . 5 2 4 2 4 2 5 2 . . . . . . 
+. 5 . . 5 5 3 4 4 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, Hero, 200, 0)
+    }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.spray, 200)
+    info.changeLifeBy(-1)
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    direction = "right"
+    animation.runImageAnimation(
+    Hero,
+    [img`
+. . . . . . . . . . . . . . . . 
+. . . . . . f f f f f f . . . . 
+. . . . f f e e e e f 2 f . . . 
+. . . f f e e e e f 2 2 2 f . . 
+. . . f e e e f f e e e e f . . 
+. . . f f f f e e 2 2 2 2 e f . 
+. . . f e 2 2 2 f f f f e 2 f . 
+. . f f f f f f f e e e f f f . 
+. . f f e 4 4 e b f 4 4 e e f . 
+. . f e e 4 d 4 1 f d d e f . . 
+. . . f e e e 4 d d d d f . . . 
+. . . . 4 d d e 4 4 4 e f . . . 
+. . . . e d d e 2 2 2 2 f . . . 
+. . . . f e e f 4 4 5 5 f f . . 
+. . . . f f f f f f f f f f . . 
+. . . . . f f . . . f f f . . . 
+`,img`
+. . . . . . f f f f f f . . . . 
+. . . . f f e e e e f 2 f . . . 
+. . . f f e e e e f 2 2 2 f . . 
+. . . f e e e f f e e e e f . . 
+. . . f f f f e e 2 2 2 2 e f . 
+. . . f e 2 2 2 f f f f e 2 f . 
+. . f f f f f f f e e e f f f . 
+. . f f e 4 4 e b f 4 4 e e f . 
+. . f e e 4 d 4 1 f d d e f . . 
+. . . f e e e 4 d d d d f . . . 
+. . . . f f e e 4 4 4 e f . . . 
+. . . . . 4 d d e 2 2 2 f . . . 
+. . . . . e d d e 2 2 2 f . . . 
+. . . . . f e e f 4 5 5 f . . . 
+. . . . . . f f f f f f . . . . 
+. . . . . . . f f f . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . f f f f f f . . . . 
+. . . . f f e e e e f 2 f . . . 
+. . . f f e e e e f 2 2 2 f . . 
+. . . f e e e f f e e e e f . . 
+. . . f f f f e e 2 2 2 2 e f . 
+. . . f e 2 2 2 f f f f e 2 f . 
+. . f f f f f f f e e e f f f . 
+. . f f e 4 4 e b f 4 4 e e f . 
+. . f e e 4 d 4 1 f d d e f . . 
+. . . f e e e e e d d d f . . . 
+. . . . . f 4 d d e 4 e f . . . 
+. . . . . f e d d e 2 2 f . . . 
+. . . . f f f e e f 5 5 f f . . 
+. . . . f f f f f f f f f f . . 
+. . . . . f f . . . f f f . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . f f f f f f . . . . 
+. . . . f f e e e e f 2 f . . . 
+. . . f f e e e e f 2 2 2 f . . 
+. . . f e e e f f e e e e f . . 
+. . . f f f f e e 2 2 2 2 e f . 
+. . . f e 2 2 2 f f f f e 2 f . 
+. . f f f f f f f e e e f f f . 
+. . f f e 4 4 e b f 4 4 e e f . 
+. . f e e 4 d 4 1 f d d e f . . 
+. . . f e e e e e d d d f . . . 
+. . . . . f 4 d d e 4 e f . . . 
+. . . . . f e d d e 2 2 f . . . 
+. . . . f f f e e f 5 5 f f . . 
+. . . . f f f f f f f f f f . . 
+. . . . . f f . . . f f f . . . 
+`,img`
+. . . . . . f f f f f f . . . . 
+. . . . f f e e e e f 2 f . . . 
+. . . f f e e e e f 2 2 2 f . . 
+. . . f e e e f f e e e e f . . 
+. . . f f f f e e 2 2 2 2 e f . 
+. . . f e 2 2 2 f f f f e 2 f . 
+. . f f f f f f f e e e f f f . 
+. . f f e 4 4 e b f 4 4 e e f . 
+. . f e e 4 d 4 1 f d d e f . . 
+. . . f e e e 4 d d d d f . . . 
+. . . . f f e e 4 4 4 e f . . . 
+. . . . . 4 d d e 2 2 2 f . . . 
+. . . . . e d d e 2 2 2 f . . . 
+. . . . . f e e f 4 5 5 f . . . 
+. . . . . . f f f f f f . . . . 
+. . . . . . . f f f . . . . . . 
+`],
+    50,
+    true
+    )
+})
+info.onCountdownEnd(function () {
+    for (let index = 0; index < 10; index++) {
+        GhostSpawner()
+    }
+    for (let index = 0; index < 10; index++) {
+        BatSpawner()
+    }
+    scene.cameraShake(4, 500)
+    music.siren.play()
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    direction = "up"
+    animation.runImageAnimation(
+    Hero,
+    [img`
+. . . . . . f f f f . . . . . . 
+. . . . f f e e e e f f . . . . 
+. . . f e e e f f e e e f . . . 
+. . f f f f f 2 2 f f f f f . . 
+. . f f e 2 e 2 2 e 2 e f f . . 
+. . f e 2 f 2 f f 2 f 2 e f . . 
+. . f f f 2 2 e e 2 2 f f f . . 
+. f f e f 2 f e e f 2 f e f f . 
+. f e e f f e e e e f e e e f . 
+. . f e e e e e e e e e e f . . 
+. . . f e e e e e e e e f . . . 
+. . e 4 f f f f f f f f 4 e . . 
+. . 4 d f 2 2 2 2 2 2 f d 4 . . 
+. . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+. . . . . f f f f f f . . . . . 
+. . . . . f f . . f f . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . f f f f . . . . . . 
+. . . . f f e e e e f f . . . . 
+. . . f e e e f f e e e f . . . 
+. . . f f f f 2 2 f f f f . . . 
+. . f f e 2 e 2 2 e 2 e f f . . 
+. . f e 2 f 2 f f f 2 f e f . . 
+. . f f f 2 f e e 2 2 f f f . . 
+. . f e 2 f f e e 2 f e e f . . 
+. f f e f f e e e f e e e f f . 
+. f f e e e e e e e e e e f f . 
+. . . f e e e e e e e e f . . . 
+. . . e f f f f f f f f 4 e . . 
+. . . 4 f 2 2 2 2 2 e d d 4 . . 
+. . . e f f f f f f e e 4 . . . 
+. . . . f f f . . . . . . . . . 
+`,img`
+. . . . . . f f f f . . . . . . 
+. . . . f f e e e e f f . . . . 
+. . . f e e e f f e e e f . . . 
+. . f f f f f 2 2 f f f f f . . 
+. . f f e 2 e 2 2 e 2 e f f . . 
+. . f e 2 f 2 f f 2 f 2 e f . . 
+. . f f f 2 2 e e 2 2 f f f . . 
+. f f e f 2 f e e f 2 f e f f . 
+. f e e f f e e e e f e e e f . 
+. . f e e e e e e e e e e f . . 
+. . . f e e e e e e e e f . . . 
+. . e 4 f f f f f f f f 4 e . . 
+. . 4 d f 2 2 2 2 2 2 f d 4 . . 
+. . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+. . . . . f f f f f f . . . . . 
+. . . . . f f . . f f . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . f f f f . . . . . . 
+. . . . f f e e e e f f . . . . 
+. . . f e e e f f e e e f . . . 
+. . . f f f f 2 2 f f f f . . . 
+. . f f e 2 e 2 2 e 2 e f f . . 
+. . f e f 2 f f f 2 f 2 e f . . 
+. . f f f 2 2 e e f 2 f f f . . 
+. . f e e f 2 e e f f 2 e f . . 
+. f f e e e f e e e f f e f f . 
+. f f e e e e e e e e e e f f . 
+. . . f e e e e e e e e f . . . 
+. . e 4 f f f f f f f f e . . . 
+. . 4 d d e 2 2 2 2 2 f 4 . . . 
+. . . 4 e e f f f f f f e . . . 
+. . . . . . . . . f f f . . . . 
+`],
+    50,
+    true
+    )
+})
+sprites.onOverlap(SpriteKind.ghost, SpriteKind.Enemy, function (sprite, otherSprite) {
+    sprite.x += 1
+    sprite.y += 1
+})
+function GhostSpawner () {
     ghost_1 = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -225,7 +653,7 @@ function MakeGhostRandomTile () {
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
-`, SpriteKind.ghost)
+`, SpriteKind.Enemy)
     animation.runImageAnimation(
     ghost_1,
     [img`
@@ -460,269 +888,9 @@ function MakeGhostRandomTile () {
     tiles.placeOnRandomTile(ghost_1, sprites.dungeon.floorLight0)
     ghost_1.follow(Hero, Math.randomRange(50, 100))
 }
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (direction == "up") {
-        projectile = sprites.createProjectileFromSprite(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . 4 b 3 2 . . . . . . 
-. . . . 4 4 b 2 2 5 5 . . . . . 
-. . . . 2 5 b 2 2 3 2 . . . . . 
-. . . . a 5 5 2 3 5 5 . . . . . 
-. . . . 2 2 4 3 5 5 . . . . . . 
-. . . . 5 2 4 2 5 2 5 . . . . . 
-. . . . 5 . 2 4 4 5 . . . . . . 
-. . . . 5 2 . 5 2 5 . 5 . . . . 
-. . . 5 . . . 5 . . . 5 . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, Hero, 0, -200)
-    } else if (direction == "down") {
-        projectile = sprites.createProjectileFromSprite(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . 5 . . 5 . . . . . . 
-. . . . 5 . . . . . . . . . . . 
-. . . . 5 . 5 . 5 . 5 . . . . . 
-. . . . 5 . 4 b 3 2 5 . . . . . 
-. . . . 4 4 b 2 2 2 5 . . . . . 
-. . . . 2 5 b 2 2 3 2 . . . . . 
-. . . . a 5 5 2 3 5 5 . . . . . 
-. . . . 2 2 4 3 5 5 . . . . . . 
-. . . . . 2 4 2 5 2 . . . . . . 
-. . . . . . 3 4 4 . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, Hero, 0, 200)
-    } else if (direction == "left") {
-        projectile = sprites.createProjectileFromSprite(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . 4 b 3 2 5 5 2 . . . 
-. . . . 4 4 b 2 2 2 5 . . . . . 
-. . . . 2 5 b 2 2 3 2 5 . . . . 
-. . . . a 5 5 2 3 5 5 . . . . . 
-. . . . 2 2 4 3 5 5 . 5 5 . . . 
-. . . . . 2 4 2 5 2 . 2 . . . . 
-. . . . . . 3 4 4 5 5 . 5 . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, Hero, -200, 0)
-    } else {
-        projectile = sprites.createProjectileFromSprite(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. 5 . 5 5 5 4 b 3 2 . . . . . . 
-. . . 2 4 4 b 2 2 2 . . . . . . 
-. . 5 5 2 5 b 2 2 3 2 . . . . . 
-. 5 . . a 5 5 2 3 5 5 . . . . . 
-. . . 5 2 2 4 3 5 5 . . . . . . 
-. . 5 2 4 2 4 2 5 2 . . . . . . 
-. 5 . . 5 5 3 4 4 . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, Hero, 200, 0)
-    }
-})
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    direction = "right"
-    animation.runImageAnimation(
-    Hero,
-    [img`
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f f f . . . . 
-. . . . f f e e e e f 2 f . . . 
-. . . f f e e e e f 2 2 2 f . . 
-. . . f e e e f f e e e e f . . 
-. . . f f f f e e 2 2 2 2 e f . 
-. . . f e 2 2 2 f f f f e 2 f . 
-. . f f f f f f f e e e f f f . 
-. . f f e 4 4 e b f 4 4 e e f . 
-. . f e e 4 d 4 1 f d d e f . . 
-. . . f e e e 4 d d d d f . . . 
-. . . . 4 d d e 4 4 4 e f . . . 
-. . . . e d d e 2 2 2 2 f . . . 
-. . . . f e e f 4 4 5 5 f f . . 
-. . . . f f f f f f f f f f . . 
-. . . . . f f . . . f f f . . . 
-`,img`
-. . . . . . f f f f f f . . . . 
-. . . . f f e e e e f 2 f . . . 
-. . . f f e e e e f 2 2 2 f . . 
-. . . f e e e f f e e e e f . . 
-. . . f f f f e e 2 2 2 2 e f . 
-. . . f e 2 2 2 f f f f e 2 f . 
-. . f f f f f f f e e e f f f . 
-. . f f e 4 4 e b f 4 4 e e f . 
-. . f e e 4 d 4 1 f d d e f . . 
-. . . f e e e 4 d d d d f . . . 
-. . . . f f e e 4 4 4 e f . . . 
-. . . . . 4 d d e 2 2 2 f . . . 
-. . . . . e d d e 2 2 2 f . . . 
-. . . . . f e e f 4 5 5 f . . . 
-. . . . . . f f f f f f . . . . 
-. . . . . . . f f f . . . . . . 
-`,img`
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f f f . . . . 
-. . . . f f e e e e f 2 f . . . 
-. . . f f e e e e f 2 2 2 f . . 
-. . . f e e e f f e e e e f . . 
-. . . f f f f e e 2 2 2 2 e f . 
-. . . f e 2 2 2 f f f f e 2 f . 
-. . f f f f f f f e e e f f f . 
-. . f f e 4 4 e b f 4 4 e e f . 
-. . f e e 4 d 4 1 f d d e f . . 
-. . . f e e e e e d d d f . . . 
-. . . . . f 4 d d e 4 e f . . . 
-. . . . . f e d d e 2 2 f . . . 
-. . . . f f f e e f 5 5 f f . . 
-. . . . f f f f f f f f f f . . 
-. . . . . f f . . . f f f . . . 
-`,img`
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f f f . . . . 
-. . . . f f e e e e f 2 f . . . 
-. . . f f e e e e f 2 2 2 f . . 
-. . . f e e e f f e e e e f . . 
-. . . f f f f e e 2 2 2 2 e f . 
-. . . f e 2 2 2 f f f f e 2 f . 
-. . f f f f f f f e e e f f f . 
-. . f f e 4 4 e b f 4 4 e e f . 
-. . f e e 4 d 4 1 f d d e f . . 
-. . . f e e e e e d d d f . . . 
-. . . . . f 4 d d e 4 e f . . . 
-. . . . . f e d d e 2 2 f . . . 
-. . . . f f f e e f 5 5 f f . . 
-. . . . f f f f f f f f f f . . 
-. . . . . f f . . . f f f . . . 
-`,img`
-. . . . . . f f f f f f . . . . 
-. . . . f f e e e e f 2 f . . . 
-. . . f f e e e e f 2 2 2 f . . 
-. . . f e e e f f e e e e f . . 
-. . . f f f f e e 2 2 2 2 e f . 
-. . . f e 2 2 2 f f f f e 2 f . 
-. . f f f f f f f e e e f f f . 
-. . f f e 4 4 e b f 4 4 e e f . 
-. . f e e 4 d 4 1 f d d e f . . 
-. . . f e e e 4 d d d d f . . . 
-. . . . f f e e 4 4 4 e f . . . 
-. . . . . 4 d d e 2 2 2 f . . . 
-. . . . . e d d e 2 2 2 f . . . 
-. . . . . f e e f 4 5 5 f . . . 
-. . . . . . f f f f f f . . . . 
-. . . . . . . f f f . . . . . . 
-`],
-    50,
-    true
-    )
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.ghost, function (sprite, otherSprite) {
-    otherSprite.destroy(effects.spray, 200)
-    info.changeLifeBy(-1)
-})
-info.onCountdownEnd(function () {
-    for (let index = 0; index < 20; index++) {
-        MakeGhostRandomTile()
-    }
-    scene.cameraShake(4, 500)
-    music.siren.play()
-})
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    direction = "up"
-    animation.runImageAnimation(
-    Hero,
-    [img`
-. . . . . . f f f f . . . . . . 
-. . . . f f e e e e f f . . . . 
-. . . f e e e f f e e e f . . . 
-. . f f f f f 2 2 f f f f f . . 
-. . f f e 2 e 2 2 e 2 e f f . . 
-. . f e 2 f 2 f f 2 f 2 e f . . 
-. . f f f 2 2 e e 2 2 f f f . . 
-. f f e f 2 f e e f 2 f e f f . 
-. f e e f f e e e e f e e e f . 
-. . f e e e e e e e e e e f . . 
-. . . f e e e e e e e e f . . . 
-. . e 4 f f f f f f f f 4 e . . 
-. . 4 d f 2 2 2 2 2 2 f d 4 . . 
-. . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-. . . . . f f f f f f . . . . . 
-. . . . . f f . . f f . . . . . 
-`,img`
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f . . . . . . 
-. . . . f f e e e e f f . . . . 
-. . . f e e e f f e e e f . . . 
-. . . f f f f 2 2 f f f f . . . 
-. . f f e 2 e 2 2 e 2 e f f . . 
-. . f e 2 f 2 f f f 2 f e f . . 
-. . f f f 2 f e e 2 2 f f f . . 
-. . f e 2 f f e e 2 f e e f . . 
-. f f e f f e e e f e e e f f . 
-. f f e e e e e e e e e e f f . 
-. . . f e e e e e e e e f . . . 
-. . . e f f f f f f f f 4 e . . 
-. . . 4 f 2 2 2 2 2 e d d 4 . . 
-. . . e f f f f f f e e 4 . . . 
-. . . . f f f . . . . . . . . . 
-`,img`
-. . . . . . f f f f . . . . . . 
-. . . . f f e e e e f f . . . . 
-. . . f e e e f f e e e f . . . 
-. . f f f f f 2 2 f f f f f . . 
-. . f f e 2 e 2 2 e 2 e f f . . 
-. . f e 2 f 2 f f 2 f 2 e f . . 
-. . f f f 2 2 e e 2 2 f f f . . 
-. f f e f 2 f e e f 2 f e f f . 
-. f e e f f e e e e f e e e f . 
-. . f e e e e e e e e e e f . . 
-. . . f e e e e e e e e f . . . 
-. . e 4 f f f f f f f f 4 e . . 
-. . 4 d f 2 2 2 2 2 2 f d 4 . . 
-. . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-. . . . . f f f f f f . . . . . 
-. . . . . f f . . f f . . . . . 
-`,img`
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f . . . . . . 
-. . . . f f e e e e f f . . . . 
-. . . f e e e f f e e e f . . . 
-. . . f f f f 2 2 f f f f . . . 
-. . f f e 2 e 2 2 e 2 e f f . . 
-. . f e f 2 f f f 2 f 2 e f . . 
-. . f f f 2 2 e e f 2 f f f . . 
-. . f e e f 2 e e f f 2 e f . . 
-. f f e e e f e e e f f e f f . 
-. f f e e e e e e e e e e f f . 
-. . . f e e e e e e e e f . . . 
-. . e 4 f f f f f f f f e . . . 
-. . 4 d d e 2 2 2 2 2 f 4 . . . 
-. . . 4 e e f f f f f f e . . . 
-. . . . . . . . . f f f . . . . 
-`],
-    50,
-    true
-    )
-})
-let projectile: Sprite = null
 let ghost_1: Sprite = null
+let projectile: Sprite = null
+let bat: Sprite = null
 let direction = ""
 let Hero: Sprite = null
 tiles.setTilemap(tiles.createTilemap(
